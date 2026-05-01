@@ -424,6 +424,19 @@ flowchart LR
         <strong>Ce qui vient de se passer :</strong> Deux captures, à un commit d'écart. Entre les deux, une colonne locataire a été retirée de la table <code>customers</code> et une politique permissive a été ajoutée. <code>neogen drift</code> a détecté les deux régressions, a lié chacune à une table et une politique précises par leur nom, et a refusé d'appliquer. <strong>Le vérificateur est la porte de confiance. L'agent n'est que le proposant.</strong>
       </p>
     </div>
+
+    <!-- Mini-glossaire des termes d'audit -->
+    <details style="margin-top:32px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 20px;">
+      <summary style="cursor:pointer;font-weight:600;font-size:14px;color:var(--accent);">📖  Que veulent dire ces termes d'audit ? (Hooks · RLS · Politique · Permissive · Verdict)</summary>
+      <div style="margin-top:14px;font-size:14px;line-height:1.6;">
+        <p style="margin:6px 0;"><strong>Hooks (React).</strong> Fonctions de logique frontale dans <code>src/hooks/</code> (p. ex. <code>useCustomers.ts</code>). Ce n'est pas un mécanisme de sécurité; c'est un indicateur de taille. Les 455 hooks signifient <em>« ce prototype porte une logique frontale substantielle. »</em></p>
+        <p style="margin:6px 0;"><strong>RLS</strong> (Row-Level Security). La fonctionnalité PostgreSQL qui filtre les lignes qu'une requête peut voir selon le contexte. En soi, c'est seulement un interrupteur; le filtrage réel est fait par les <em>politiques RLS</em>.</p>
+        <p style="margin:6px 0;"><strong>Politique RLS.</strong> Une règle précise attachée à une table. Anatomie : un nom, une table cible, une opération (SELECT / INSERT / UPDATE / DELETE), une clause <code>USING</code> (filtre de lecture), et optionnellement une clause <code>WITH CHECK</code> (filtre d'écriture). Une table peut avoir plusieurs politiques.</p>
+        <p style="margin:6px 0;"><strong>Permissive (au sens de l'audit).</strong> Une politique dont la clause <code>USING</code> est littéralement <code>true</code> — elle existe, coche la case « RLS configuré ? » mais ne filtre rien. Chaque ligne passe. <em>Dans une application multi-locataires : les requêtes du locataire A renvoient les lignes du locataire B.</em> L'audit en a compté 498 dans FieldNOW, réparties sur 326 tables distinctes.</p>
+        <p style="margin:6px 0;"><strong>Verdict&lt;W&gt;.</strong> Trois valeurs, pas deux. <code>Hold</code> = vérifié, passé. <code>Fail(W)</code> = vérifié, brisé — avec un <em>témoin</em> W portant la preuve structurée de ce qui est précisément brisé. <code>Unknown</code> = non vérifié. La logique à deux valeurs confond « pas vérifié » avec « passé »; la logique à trois valeurs force l'honnêteté.</p>
+        <p style="margin:6px 0;"><strong>Témoin (Witness).</strong> La charge utile structurée à l'intérieur de <code>Fail(témoin)</code>. Pour l'isolation locataire, le témoin est une liste de chaque triplet contrevenant <code>(table, politique, raison)</code> — des données typées et actionnables, pas une trace d'erreur.</p>
+      </div>
+    </details>
   </div>
 </section>
 

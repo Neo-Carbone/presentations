@@ -602,6 +602,19 @@ flowchart LR
         <strong>What just happened:</strong> Two captures, one commit apart. Between them, a tenant column was dropped from the <code>customers</code> table and a permissive policy was added. <code>neogen drift</code> detected both regressions, tied each to a specific table and policy by name, and refused to apply. <strong>The verifier is the trust gate. The agent is just the proposer.</strong>
       </p>
     </div>
+
+    <!-- Mini-glossary for the demo terms -->
+    <details style="margin-top:32px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 20px;">
+      <summary style="cursor:pointer;font-weight:600;font-size:14px;color:var(--accent);">📖  What do those audit terms mean? (Hooks · RLS · Policy · Permissive · Verdict)</summary>
+      <div style="margin-top:14px;font-size:14px;line-height:1.6;">
+        <p style="margin:6px 0;"><strong>Hooks (React).</strong> Front-end UI logic functions in <code>src/hooks/</code> (e.g. <code>useCustomers.ts</code>). Not a security thing; a sizing signal. The 455 hooks figure says <em>"this prototype carries substantial front-end logic."</em></p>
+        <p style="margin:6px 0;"><strong>RLS</strong> (Row-Level Security). The PostgreSQL feature that filters which rows a query can see based on context. By itself just a switch; the actual filtering is done by <em>RLS policies</em>.</p>
+        <p style="margin:6px 0;"><strong>RLS policy.</strong> One specific rule attached to a table. Anatomy: a name, a target table, an operation (SELECT / INSERT / UPDATE / DELETE), a <code>USING</code> clause (read filter), and optionally a <code>WITH CHECK</code> clause (write filter). One table can have many policies.</p>
+        <p style="margin:6px 0;"><strong>Permissive (audit sense).</strong> A policy whose <code>USING</code> clause is literally <code>true</code> — it exists, satisfies "is RLS configured?" checkboxes, but filters nothing. Every row passes. <em>In a multi-tenant app: tenant A's queries return tenant B's rows.</em> The audit counts 498 of these in FieldNOW across 326 distinct tables.</p>
+        <p style="margin:6px 0;"><strong>Verdict&lt;W&gt;.</strong> Three values, not two. <code>Hold</code> = checked, passed. <code>Fail(W)</code> = checked, broken — with <em>witness</em> W carrying structured evidence of what specifically broke. <code>Unknown</code> = not checked. Two-valued logic conflates "didn't check" with "passed"; three-valued logic forces honesty.</p>
+        <p style="margin:6px 0;"><strong>Witness.</strong> The structured payload inside <code>Fail(witness)</code>. For tenant isolation, the witness is a list of every offending <code>(table, policy, reason)</code> triple — actionable typed data, not a stack trace.</p>
+      </div>
+    </details>
   </div>
 </section>
 
