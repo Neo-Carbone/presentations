@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NeoGen — malleable software for B2B SaaS</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #fafafa;
+  --bg-panel: #ffffff;
+  --bg-dark: #1c1f26;
+  --text: #1c1f26;
+  --text-muted: #555a66;
+  --text-dim: #8d93a3;
+  --border: #e1e4ea;
+  --accent: #4527a0;
+  --accent-light: #d1c4e9;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --c-primary: #1976d2;
+  --c-stage: #ff9800;
+  --c-evolve: #e65100;
+  --c-oracle: #7e57c2;
+  --c-success: #2e7d32;
+  --c-fail: #d32f2f;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: rgba(126, 87, 194, 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+/* ============== HERO ============== */
+.hero {
+  background: linear-gradient(135deg, #1c1f26 0%, #2d1b54 100%);
+  color: #fff;
+  padding: 80px 64px 64px;
+  position: relative;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero .eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  color: #d1c4e9;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+.hero .tagline {
+  font-size: 22px;
+  color: #c4c8d0;
+  margin: 0 0 28px;
+  max-width: 28ch;
+  line-height: 1.4;
+}
+.hero .pitch {
+  font-size: 17px;
+  color: #c4c8d0;
+  max-width: 64ch;
+  line-height: 1.6;
+  margin: 0;
+}
+.hero .pitch b { color: #fff; }
+
+/* ============== SECTION SCAFFOLD ============== */
+.section {
+  padding: 72px 64px;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-of-type { border-bottom: none; }
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section h2 {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.section .lede {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 70ch;
+  margin: 0 0 36px;
+}
+
+/* ============== "THE PROBLEM" SECTION ============== */
+.problem {
+  background: linear-gradient(180deg, #fff5f5 0%, #ffffff 100%);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+.problem-card {
+  background: #fff;
+  border: 1px solid #ffcdd2;
+  border-left: 5px solid #d32f2f;
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.problem-card h4 { margin: 0 0 8px; font-size: 16px; color: #b71c1c; }
+.problem-card p { margin: 0; font-size: 14px; color: var(--text); }
+
+/* ============== "OUR APPROACH" ============== */
+.approach-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.approach-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  position: relative;
+}
+.approach-card .num {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  background: var(--accent);
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+.approach-card h4 { margin: 8px 0 6px; font-size: 16px; }
+.approach-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+/* ============== PIPELINE DIAGRAM ============== */
+.diagram-wrap {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin: 24px 0;
+  overflow: auto;
+}
+.mermaid { text-align: center; min-height: 200px; }
+.mermaid svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+/* ============== LIVE DEMO ============== */
+#live-demo {
+  background: linear-gradient(180deg, #fff5f5 0%, #ffffff 60%);
+  border-top: 4px solid #d32f2f;
+}
+.demo-eyebrow {
+  background: #d32f2f !important;
+  color: #fff !important;
+  border-color: #d32f2f !important;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+/* terminal */
+.term {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 0 0 16px;
+  margin: 16px 0 28px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: #c9d1d9;
+  line-height: 1.6;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+.term-bar {
+  background: #161b22;
+  padding: 10px 16px;
+  border-radius: 10px 10px 0 0;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #30363d;
+}
+.term-dot { width: 12px; height: 12px; border-radius: 50%; }
+.term-dot.r { background: #ff5f57; }
+.term-dot.y { background: #febc2e; }
+.term-dot.g { background: #28c840; }
+.term-title { margin-left: 12px; color: #8b949e; font-size: 12px; }
+.term-body { padding: 16px 20px; min-height: 240px; }
+.term-line { display: block; min-height: 1.6em; }
+.term-line.cmd::before { content: "$ "; color: #fdd835; font-weight: 700; }
+.term-line.info { color: #8b949e; }
+.term-line.dim  { color: #6e7681; }
+.term-line.k    { color: #79c0ff; font-weight: 600; }
+.term-line.ok   { color: #56d364; font-weight: 600; }
+.term-line.err  { color: #ff7b72; font-weight: 700; }
+.term-line.warn { color: #ffa657; }
+.term-line.hi   { color: #f8f8f2; font-weight: 700; }
+.term-cursor {
+  display: inline-block;
+  width: 9px; height: 14px;
+  background: #56d364;
+  vertical-align: -2px;
+  animation: blink 1s steps(2, start) infinite;
+  margin-left: 2px;
+}
+@keyframes blink { to { visibility: hidden; } }
+
+.term-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin: 24px 0 0; }
+.term-tab {
+  background: transparent; border: none;
+  padding: 10px 18px;
+  font-size: 13px; font-family: inherit; font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+.term-tab:hover { color: var(--text); }
+.term-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.term-pane { display: none; padding: 14px 0 0; }
+.term-pane.active { display: block; }
+.term-controls { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.term-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12px; font-family: inherit; font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: filter 0.12s, transform 0.1s;
+}
+.term-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.term-btn.fast { background: #2e7d32; }
+.term-btn.secondary { background: #424242; }
+
+/* stat cards */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 16px 14px;
+}
+.stat-num {
+  font-size: 38px; font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.stat-card.alert { background: linear-gradient(180deg, #ffebee 0%, #ffcdd2 100%); border-color: #d32f2f; }
+.stat-card.alert .stat-num { color: #b71c1c; }
+.stat-card.alert .stat-label { color: #b71c1c; font-weight: 700; }
+
+.verdict-banner {
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 8px 0 28px;
+  display: flex; align-items: center; gap: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(211, 47, 47, 0.35);
+  border: 2px solid #ffcdd2;
+}
+.v-badge {
+  font-size: 22px; font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.18);
+  letter-spacing: 0.1em;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+.v-text { font-size: 15px; line-height: 1.5; }
+.v-text b { font-size: 18px; }
+
+/* skills preview */
+.skills-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.skill-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  border-left: 5px solid #c8e6c9;
+}
+.skill-card.l1 { border-left-color: #c8e6c9; }
+.skill-card.l2 { border-left-color: #81c784; }
+.skill-card.l3 { border-left-color: #388e3c; }
+.skill-card.arch { border-left-color: #1b5e20; border-left-width: 7px; background: linear-gradient(180deg, #fff, #f1f8e9); }
+.skill-card .layer-tag {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--text-muted);
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.skill-card.l1 .layer-tag { background: #c8e6c9; color: #1b5e20; }
+.skill-card.l2 .layer-tag { background: #81c784; color: #1b5e20; }
+.skill-card.l3 .layer-tag { background: #388e3c; color: #fff; }
+.skill-card.arch .layer-tag { background: #1b5e20; color: #ffeb3b; }
+.skill-card h4 { margin: 0 0 8px; font-size: 15px; }
+.skill-card p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+.skill-card code { font-size: 12px; }
+
+/* contact */
+.contact-banner {
+  background: linear-gradient(135deg, #4527a0 0%, #311b92 100%);
+  color: #fff;
+  padding: 56px 64px;
+  text-align: center;
+}
+.contact-banner h3 { font-size: 28px; margin: 0 0 12px; }
+.contact-banner p { font-size: 16px; color: #d1c4e9; max-width: 50ch; margin: 0 auto 20px; }
+.contact-btn {
+  display: inline-block;
+  background: #fff; color: var(--accent);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+  transition: transform 0.12s, box-shadow 0.12s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.contact-btn:hover { transform: translateY(-2px); text-decoration: none; box-shadow: 0 8px 22px rgba(0,0,0,0.22); }
+
+/* small print */
+.foot {
+  background: var(--bg-dark);
+  color: var(--text-dim);
+  padding: 28px 64px;
+  font-size: 13px;
+  text-align: center;
+}
+.foot a { color: #d1c4e9; }
+
+@media (max-width: 800px) {
+  .hero { padding: 48px 24px 36px; }
+  .hero h1 { font-size: 36px; }
+  .hero .tagline { font-size: 18px; }
+  .section { padding: 48px 24px; }
+  .contact-banner { padding: 40px 24px; }
+  .foot { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== HERO ============== -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Neo Carbone · NeoGen</span>
+    <h1>Malleable software<br>your customers can shape — safely.</h1>
+    <p class="tagline">Spec-driven AI for B2B SaaS where every customer wants their own variant.</p>
+    <p class="pitch">
+      Your customers don't want feature requests. They want their software to fit their business. <b>NeoGen</b> lets each tenant reshape your product through natural-language requests, with a verifier in the trust path so nothing breaks. Theming, dashboards, workflow rules, even authorization rules — all expressed as <b>typed skills</b> the system checks before applying. It's <b>Zapier-shaped at the user surface, with a verifier behind it.</b>
+    </p>
+  </div>
+</header>
+
+<!-- ============== THE PROBLEM ============== -->
+<section class="section problem">
+  <div class="section-inner">
+    <h2>The problem mid-tier ERPs run into.</h2>
+    <p class="lede">Once your customer base spans more than a handful of segments, the feature backlog stops being one product roadmap and starts being many.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h4>Divergent feature requests</h4>
+        <p>Every customer wants a different workflow, a different dashboard, a different report. Hand-coding each one doesn't scale.</p>
+      </div>
+      <div class="problem-card">
+        <h4>"Customizable" usually means unsafe</h4>
+        <p>Configuration screens reach a ceiling fast. Beyond it, customers want plugins, integrations, scripts — and now you own the breakage.</p>
+      </div>
+      <div class="problem-card">
+        <h4>Coding agents don't fix it</h4>
+        <p>Cursor and Copilot make engineers faster at writing the same code. They don't make customer-driven change <em>safe</em>.</p>
+      </div>
+      <div class="problem-card">
+        <h4>Multi-tenant data leakage is a compliance death</h4>
+        <p>Tenant isolation is hard to get right and easy to break. One audit finding can take a year of cleanup.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== OUR APPROACH ============== -->
+<section class="section">
+  <div class="section-inner">
+    <h2>How NeoGen changes the equation.</h2>
+    <p class="lede">Three commitments. Each is verifiable; each composes with the others.</p>
+
+    <div class="approach-row">
+      <div class="approach-card">
+        <span class="num">1</span>
+        <h4>Spec-driven generation</h4>
+        <p>The product is the spec. Code is generated from it — migrations, RLS policies, API, tests. When the spec changes, the code re-derives. Your engineers write what's genuinely novel; the rest is templating.</p>
+      </div>
+      <div class="approach-card">
+        <span class="num">2</span>
+        <h4>Skills as the user surface</h4>
+        <p>Customers reshape the product by invoking <b>skills</b> — typed, capability-scoped operations they request in natural language. Every invocation goes through a verifier before it applies. The familiar L1/L2/L3 engagement layers (theming, structural, deep) are now precise parameter shapes of the same generic skill template.</p>
+      </div>
+      <div class="approach-card">
+        <span class="num">3</span>
+        <h4>Verifier in the trust path</h4>
+        <p>Every check returns one of three answers: <b>Hold</b> (it's safe), <b>Fail(witness)</b> (here's exactly what would break), <b>Unknown</b> (we don't know — escalate). No silent retries, no false confidence. This is what makes customer-driven change actually safe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PIPELINE ============== -->
+<section class="section">
+  <div class="section-inner">
+    <h2>The pipeline that does it.</h2>
+    <p class="lede">Six stages, one direction, with feedback edges that close the loop. The pipeline turns a starting prototype into a verified, signed, multi-tenant production system — and keeps it in sync as your customers reshape it.</p>
+
+    <div class="diagram-wrap">
+      <pre class="mermaid">
+flowchart LR
+    classDef stage fill:#ff9800,stroke:#bf360c,stroke-width:3px,color:#ffffff,font-weight:bold
+    classDef stageEvolve fill:#e65100,stroke:#bf360c,stroke-width:5px,color:#ffffff,font-weight:bold
+    classDef artifact fill:#fafafa,stroke:#757575,color:#424242,stroke-dasharray:5 3
+
+    s1["1. CAPTURE<br/>read your<br/>existing system"]:::stage
+    s2["2. SPECIFY<br/>typed schema<br/>+ invariants"]:::stage
+    s3["3. GENERATE<br/>code from<br/>spec"]:::stage
+    s4["4. VERIFY<br/>cheap to<br/>expensive checks"]:::stage
+    s5["5. DEPLOY<br/>signed,<br/>compliant"]:::stage
+    s6["6. EVOLVE<br/>customer<br/>changes feed in"]:::stageEvolve
+
+    s1 --> s2 --> s3 --> s4 --> s5 --> s6
+    s6 -. spec deltas .-> s2
+    s4 -. Fail(witness) .-> s2
+      </pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SKILLS ============== -->
+<section class="section">
+  <div class="section-inner">
+    <h2>Skills, by the depth of what they touch.</h2>
+    <p class="lede">A skill is a named, typed operation a customer can invoke. The familiar <b>L1 / L2 / L3</b> engagement layers stay as the user vocabulary. Underneath, each layer is a parameter shape of the same generic template — and the verifier reads the parameters to decide what to check.</p>
+
+    <div class="skills-row">
+      <div class="skill-card l1">
+        <span class="layer-tag">L1 · cosmetic</span>
+        <h4>Theming &amp; copy</h4>
+        <p>"Set my brand colour to blue." "Edit the reminder email's wording." Type-checked only. Applies immediately. No invariant exposure.</p>
+      </div>
+      <div class="skill-card l2">
+        <span class="layer-tag">L2 · structural</span>
+        <h4>Dashboards &amp; views</h4>
+        <p>"Add a revenue KPI to my dashboard." "Show these columns in the customer view." Tenant isolation enforced. Data scope confined to the customer's own.</p>
+      </div>
+      <div class="skill-card l3">
+        <span class="layer-tag">L3 · deep</span>
+        <h4>Behaviour &amp; rules</h4>
+        <p>"Send a follow-up when payment is 30 days late." "Route service-plan upgrades to the membership team." Full invariant gauntlet. Signed audit record.</p>
+      </div>
+      <div class="skill-card arch">
+        <span class="layer-tag">Architectural region</span>
+        <h4>Authorization &amp; schema</h4>
+        <p>"Tighten access on customers so only billing admins read invoice amounts." Formal proofs gate the change. The customer's intent is honoured; the database isn't touched directly.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;font-size:14px;color:var(--text-muted);font-style:italic;">The same kind of operation can land in different layers depending on what part of it changes. Editing an email's wording is L1; rewiring when the email fires is L3. The verifier reads the parameters — not the category.</p>
+  </div>
+</section>
+
+<!-- ============== LIVE DEMO ============== -->
+<section id="live-demo" class="section">
+  <div class="section-inner">
+    <span class="demo-eyebrow">▶  Live demo</span>
+    <h2>This isn't slideware. It's a binary running on a real prototype.</h2>
+    <p class="lede">The numbers below come from running <code>neogen capture</code> on an actual HVAC field-service prototype. The drift report after that is from a known regression we injected into a small spec repo. <strong>All output is real.</strong></p>
+
+    <div class="term-tabs">
+      <button class="term-tab active" data-pane="t-cap">▶ neogen capture</button>
+      <button class="term-tab" data-pane="t-drift">▶ neogen drift</button>
+    </div>
+
+    <div class="term-pane active" id="t-cap">
+      <div class="term-controls">
+        <button class="term-btn" id="t-cap-run">▶ Run</button>
+        <button class="term-btn fast" id="t-cap-fast">⏩ Fast-forward</button>
+        <button class="term-btn secondary" id="t-cap-reset">↺ Reset</button>
+      </div>
+      <div class="term">
+        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-title">neogen v0.0.0</span></div>
+        <div class="term-body" id="t-cap-body"></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num">3,570</div><div class="stat-label">Files inventoried</div></div>
+        <div class="stat-card"><div class="stat-num">2,602</div><div class="stat-label">Authorization rules</div></div>
+        <div class="stat-card alert"><div class="stat-num">498</div><div class="stat-label">Permissive (tenant-leak)</div></div>
+        <div class="stat-card alert"><div class="stat-num">326</div><div class="stat-label">Distinct affected tables</div></div>
+      </div>
+
+      <div class="verdict-banner">
+        <div class="v-badge">FAIL</div>
+        <div class="v-text">
+          <b>Tenant isolation: Fail (with structured witness)</b><br>
+          326 tables expose data across tenants because of <code style="background:rgba(255,255,255,0.18);color:#fff;padding:1px 6px;border-radius:3px">USING (true)</code> policies. The verifier names every offender. This is exactly the surface a <b>skill in the architectural region</b> would mediate as customers ask to tighten access.
+        </div>
+      </div>
+    </div>
+
+    <div class="term-pane" id="t-drift">
+      <div class="term-controls">
+        <button class="term-btn" id="t-drift-run">▶ Run</button>
+        <button class="term-btn fast" id="t-drift-fast">⏩ Fast-forward</button>
+        <button class="term-btn secondary" id="t-drift-reset">↺ Reset</button>
+      </div>
+      <div class="term">
+        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-title">neogen v0.0.0</span></div>
+        <div class="term-body" id="t-drift-body"></div>
+      </div>
+
+      <p style="font-size:14px;color:var(--text-muted);margin-top:14px;">
+        <strong>What just happened:</strong> Two captures, one commit apart. Between them, a tenant column was dropped from the <code>customers</code> table and a permissive policy was added. <code>neogen drift</code> detected both regressions, tied each to a specific table and policy by name, and refused to apply. <strong>The verifier is the trust gate. The agent is just the proposer.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONTACT ============== -->
+<section class="contact-banner">
+  <h3>Want to see this on your codebase?</h3>
+  <p>NeoGen is in active development with engagement targets in B2B SaaS and ERP. We run capture-and-audit pilots in days, not quarters.</p>
+  <a class="contact-btn" href="mailto:hello@neocarbone.ai?subject=NeoGen%20pilot%20interest">Get in touch →</a>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="foot">
+  © 2026 Neo Carbone · <a href="https://github.com/Neo-Carbone">github.com/Neo-Carbone</a>
+</footer>
+
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'neutral', flowchart: { htmlLabels: true, curve: 'basis' } });
+
+// Tab switching
+document.querySelectorAll('.term-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.dataset.pane;
+    btn.parentElement.querySelectorAll('.term-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    let n = btn.parentElement.nextElementSibling;
+    while (n && !n.classList.contains('term-tabs')) {
+      if (n.classList && n.classList.contains('term-pane')) {
+        n.classList.toggle('active', n.id === targetId);
+      }
+      n = n.nextElementSibling;
+    }
+  });
+});
+
+// Terminal scripts
+const CAP_SCRIPT = [
+  { c: 'cmd', t: './neogen capture --source ~/your-saas-prototype --target /tmp/spec', d: 16 },
+  { c: 'info', t: '', delay: 200 },
+  { c: 'info', t: '2026-04-30T14:34Z  INFO  matched adapter  adapter=lovable', d: 4, delay: 200 },
+  { c: 'dim',  t: '                    walking source tree …', d: 4, delay: 220 },
+  { c: 'dim',  t: '                    parsing 573 SQL migrations …', d: 4, delay: 280 },
+  { c: 'dim',  t: '                    extracting 2,602 authorization rules …', d: 4, delay: 280 },
+  { c: 'dim',  t: '                    classifying integrations · provenance · design system …', d: 4, delay: 250 },
+  { c: 'dim',  t: '                    encoding · signing (Ed25519) …', d: 4, delay: 250 },
+  { c: 'info', t: '2026-04-30T14:34Z  INFO  capture written  /tmp/spec/captures/2026-04-30T14-34Z', d: 4, delay: 200 },
+  { c: 'info', t: '', delay: 200 },
+  { c: 'hi',   t: '── Audit summary ──────────────────────────────────', d: 2, delay: 200 },
+  { c: 'k',    t: '  Files inventoried             3,570', d: 4, delay: 90 },
+  { c: 'k',    t: '  Authorization rules           2,602', d: 4, delay: 90 },
+  { c: 'err',  t: '  Permissive (tenant-leaking)   498   ← regression class', d: 4, delay: 200 },
+  { c: 'err',  t: '  Distinct affected tables      326', d: 4, delay: 200 },
+  { c: 'info', t: '', delay: 180 },
+  { c: 'hi',   t: '── Verdict ────────────────────────────────────────', d: 2, delay: 180 },
+  { c: 'err',  t: '  tenant_isolation: Fail(witness)', d: 6, delay: 250 },
+  { c: 'dim',  t: '    witness names every offender', d: 3, delay: 200 },
+  { c: 'info', t: '', delay: 100 },
+  { c: 'ok',   t: '✓ done in 0.94s', d: 6, delay: 200 },
+];
+
+const DRIFT_SCRIPT = [
+  { c: 'cmd', t: './neogen drift --target /tmp/spec --print-summary', d: 16 },
+  { c: 'info', t: '', delay: 200 },
+  { c: 'dim', t: 'loading capture A: 2026-04-30T14-34Z (commit be9ae63f)', d: 3, delay: 230 },
+  { c: 'dim', t: 'loading capture B: 2026-04-30T14-50Z (commit b9f59fae)', d: 3, delay: 230 },
+  { c: 'dim', t: 'computing per-category drift …', d: 3, delay: 280 },
+  { c: 'info', t: '', delay: 150 },
+  { c: 'hi',  t: '── Drift report ──────────────────────────────────────', d: 2, delay: 200 },
+  { c: 'k',   t: '  inventory     +2 files', d: 3, delay: 130 },
+  { c: 'k',   t: '  data_model    ⚠ tenant column dropped from customers', d: 3, delay: 230 },
+  { c: 'err', t: '  rls           ⚠ permissive policy added: customers.all_visible (USING true)', d: 3, delay: 250 },
+  { c: 'k',   t: '  integrations  no change', d: 3, delay: 100 },
+  { c: 'info', t: '', delay: 200 },
+  { c: 'err',  t: '  overall: FAIL', d: 8, delay: 350 },
+  { c: 'info', t: '', delay: 200 },
+  { c: 'dim',  t: 'wrote /tmp/spec/drifts/<from>__<to>/  (signed CBOR + JSON + Markdown)', d: 3, delay: 200 },
+  { c: 'ok',   t: 'FAIL — refusing to apply', d: 5, delay: 200 },
+];
+
+const term = (id) => document.getElementById(id);
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+let running = {};
+
+async function play(id, script, fast = false) {
+  const body = term(id); body.innerHTML = '';
+  running[id] = { abort: false }; const flag = running[id];
+  for (const step of script) {
+    if (flag.abort) return;
+    const line = document.createElement('span');
+    line.className = 'term-line ' + (step.c || '');
+    body.appendChild(line);
+    body.scrollTop = body.scrollHeight;
+    if (fast) line.textContent = step.t;
+    else {
+      const cd = step.d ?? 6;
+      for (let i = 0; i < step.t.length; i++) {
+        if (flag.abort) return;
+        line.textContent += step.t[i];
+        if (i % 4 === 0) body.scrollTop = body.scrollHeight;
+        await sleep(cd);
+      }
+    }
+    if (!fast && step.delay) await sleep(step.delay);
+    else if (fast && step.delay) await sleep(Math.min(step.delay, 30));
+  }
+  const cur = document.createElement('span'); cur.className = 'term-cursor'; body.appendChild(cur);
+}
+
+function abort(id) { if (running[id]) running[id].abort = true; }
+function clr(id) { abort(id); const b = term(id); if (b) b.innerHTML = ''; }
+
+document.getElementById('t-cap-run')?.addEventListener('click', () => { abort('t-cap-body'); play('t-cap-body', CAP_SCRIPT, false); });
+document.getElementById('t-cap-fast')?.addEventListener('click', () => { abort('t-cap-body'); play('t-cap-body', CAP_SCRIPT, true); });
+document.getElementById('t-cap-reset')?.addEventListener('click', () => clr('t-cap-body'));
+document.getElementById('t-drift-run')?.addEventListener('click', () => { abort('t-drift-body'); play('t-drift-body', DRIFT_SCRIPT, false); });
+document.getElementById('t-drift-fast')?.addEventListener('click', () => { abort('t-drift-body'); play('t-drift-body', DRIFT_SCRIPT, true); });
+document.getElementById('t-drift-reset')?.addEventListener('click', () => clr('t-drift-body'));
+
+// Auto-play on intersection
+const demoSection = document.getElementById('live-demo');
+if (demoSection && term('t-cap-body')) {
+  const auto = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !demoSection.dataset.played) {
+        demoSection.dataset.played = '1';
+        play('t-cap-body', CAP_SCRIPT, true);
+      }
+    });
+  }, { threshold: 0.15 });
+  auto.observe(demoSection);
+}
+</script>
+</body>
+</html>
