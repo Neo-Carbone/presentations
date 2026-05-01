@@ -1,0 +1,10 @@
+{"version":3,"term":{"cols":80,"rows":24},"timestamp":1777640023,"idle_time_limit":1.0,"command":"/tmp/casts/run-drift-demo.sh","title":"neogen drift — real regression detection","env":{"SHELL":"/bin/zsh"}}
+[0.173, "o", "\r\n\u001b[1;33m$\u001b[0m \u001b[1mneogen drift --target /tmp/spec --print-summary\u001b[0m\r\n"]
+[0.421, "o", "FAIL 2026-04-30T14-34-46.102695Z → 2026-04-30T14-34-46.145342Z\r\n"]
+[0.306, "o", "\r\n"]
+[0.001, "o", "\u001b[1;36m── Drift report (rendered Markdown) ──────────────────────\u001b[0m\r\n"]
+[0.006, "o", "# Drift report\r\n\r\n- **From:** `2026-04-30T14-34-46.102695Z` (commit `be9ae63f`)\r\n- **To:**   `2026-04-30T14-34-46.145342Z` (commit `b9f59fae`)\r\n- **Computed at:** 2026-05-01 12:53:44.330588 +00:00:00\r\n- **Overall verdict:** **Fail**  ❌ (regression detected)\r\n\r\n## Regressions\r\n\r\n### Tenant-isolation regressions (RLS)\r\n- `customers`.`all_visible`: new permissive policy added (USING (true))\r\n\r\n## Inventory delta\r\n- Added: 2 files · Removed: 0 files · Changed: 0 files · Status transitions: 0\r\n  - + `src/components/Toolbar.tsx` (Component)\r\n  - + `supabase/migrations/0002_drop_tenant.sql` (Sql)\r\n\r\n## Data-model delta\r\n- Tables added: 1 · Tables removed: 0 · Tables altered: 0\r\n\r\n## RLS delta\r\n- Policies added: 1 (permissive: 1) · removed: 0 (permissive: 0) · altered: 0\r\n\r\n## Provenance delta\r\n- New commits: 0 · Source commit changed: true\r\n\r\n## Design-system delta (stub)\r\n- Colors +0/−0 · Spacing +0/−0 · Components +0/−0\r\n"]
+[0.306, "o", "\r\n\u001b[1;36m── Output files ──────────────────────────────────────────\u001b[0m\r\n"]
+[0.010, "o", "  drift.cbor           1.7K\r\n  drift.cbor.sig       64B\r\n  drift.json           3.0K\r\n  drift.md             920B\r\n  manifest.json        508B\r\n"]
+[0.305, "o", "\r\n\u001b[1;31m✗ FAIL — overall verdict refuses to apply\u001b[0m\r\n\r\n"]
+[0.000, "x", "0"]

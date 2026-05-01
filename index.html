@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Neo Carbone — presentations</title>
+<title>Neo Carbone — presentations / présentations</title>
 <style>
 * { box-sizing: border-box; }
 body {
@@ -29,7 +29,14 @@ h1 { font-size: 42px; letter-spacing: -0.02em; margin: 0 0 6px; }
   transition: background 0.15s, transform 0.1s;
 }
 .deck:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
-.deck h3 { margin: 0 0 6px; font-size: 19px; }
+.deck h3 { margin: 0 0 6px; font-size: 19px; display: flex; align-items: center; gap: 10px; }
+.deck h3 .lang-tag {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(255,255,255,0.18);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
 .deck p { margin: 0; color: #c4c8d0; font-size: 14px; }
 .foot { color: #8d93a3; margin-top: 60px; font-size: 13px; }
 .foot a { color: #d1c4e9; }
@@ -38,13 +45,19 @@ h1 { font-size: 42px; letter-spacing: -0.02em; margin: 0 0 6px; }
 <body>
 <div class="wrap">
   <h1>Neo Carbone</h1>
-  <p class="sub">Client-facing presentations.</p>
+  <p class="sub">Client-facing presentations · présentations clients.</p>
 
   <ul class="deck-list">
     <li>
       <a class="deck" href="./neogen/">
-        <h3>NeoGen — malleable software for B2B SaaS</h3>
+        <h3>NeoGen — malleable software for B2B SaaS <span class="lang-tag">EN</span></h3>
         <p>Spec-driven AI for products where every customer wants their own variant. Live demo on a real prototype.</p>
+      </a>
+    </li>
+    <li>
+      <a class="deck" href="./neogen-fr/">
+        <h3>NeoGen — logiciel malléable pour SaaS B2B <span class="lang-tag">FR</span></h3>
+        <p>IA pilotée par spécifications pour produits où chaque client veut sa propre variante. Démo en direct sur un vrai prototype.</p>
       </a>
     </li>
   </ul>

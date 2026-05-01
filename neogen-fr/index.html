@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NeoGen — logiciel malléable pour SaaS B2B</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/asciinema-player@3/dist/bundle/asciinema-player.css" />
+<script src="https://cdn.jsdelivr.net/npm/asciinema-player@3/dist/bundle/asciinema-player.min.js"></script>
+<style>
+:root {
+  --bg: #fafafa; --bg-panel: #ffffff; --bg-dark: #1c1f26;
+  --text: #1c1f26; --text-muted: #555a66; --text-dim: #8d93a3;
+  --border: #e1e4ea; --accent: #4527a0; --accent-light: #d1c4e9;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  font-size: 16px; line-height: 1.6;
+  color: var(--text); background: var(--bg);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: rgba(126, 87, 194, 0.08);
+  padding: 1px 5px; border-radius: 3px; color: var(--accent);
+}
+
+/* language switcher */
+.lang-bar {
+  position: fixed; top: 16px; right: 16px;
+  display: flex; gap: 4px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 4px;
+  z-index: 100;
+  font-size: 13px;
+  font-weight: 600;
+}
+.lang-bar a {
+  color: rgba(255,255,255,0.7);
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.lang-bar a.active { background: rgba(255,255,255,0.18); color: #fff; }
+.lang-bar a:hover { color: #fff; text-decoration: none; }
+
+.hero {
+  background: linear-gradient(135deg, #1c1f26 0%, #2d1b54 100%);
+  color: #fff; padding: 80px 64px 64px; position: relative;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; }
+.hero .eyebrow {
+  display: inline-block;
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px; color: #d1c4e9; margin-bottom: 24px;
+}
+.hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 16px; line-height: 1.1; }
+.hero .tagline { font-size: 22px; color: #c4c8d0; margin: 0 0 28px; max-width: 32ch; line-height: 1.4; }
+.hero .pitch { font-size: 17px; color: #c4c8d0; max-width: 64ch; line-height: 1.6; margin: 0; }
+.hero .pitch b { color: #fff; }
+
+.section { padding: 72px 64px; border-bottom: 1px solid var(--border); }
+.section:last-of-type { border-bottom: none; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section h2 { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px; }
+.section .lede { font-size: 18px; color: var(--text-muted); max-width: 70ch; margin: 0 0 36px; }
+
+.problem { background: linear-gradient(180deg, #fff5f5 0%, #ffffff 100%); }
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px; margin: 24px 0;
+}
+.problem-card {
+  background: #fff; border: 1px solid #ffcdd2; border-left: 5px solid #d32f2f;
+  border-radius: 10px; padding: 20px 22px;
+}
+.problem-card h4 { margin: 0 0 8px; font-size: 16px; color: #b71c1c; }
+.problem-card p { margin: 0; font-size: 14px; color: var(--text); }
+
+.approach-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px; margin: 24px 0;
+}
+.approach-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 22px; position: relative;
+}
+.approach-card .num {
+  position: absolute; top: -12px; left: 18px;
+  background: var(--accent); color: #fff;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px;
+}
+.approach-card h4 { margin: 8px 0 6px; font-size: 16px; }
+.approach-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+.diagram-wrap {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px;
+  box-shadow: var(--shadow); margin: 24px 0; overflow: auto;
+}
+.mermaid { text-align: center; min-height: 200px; }
+.mermaid svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+#live-demo {
+  background: linear-gradient(180deg, #fff5f5 0%, #ffffff 60%);
+  border-top: 4px solid #d32f2f;
+}
+.demo-eyebrow {
+  background: #d32f2f !important; color: #fff !important; border-color: #d32f2f !important;
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+  display: inline-block; margin-bottom: 14px;
+}
+
+.term {
+  background: #0d1117; border: 1px solid #30363d;
+  border-radius: 10px; padding: 0 0 16px; margin: 16px 0 28px;
+  font-family: "JetBrains Mono", monospace; font-size: 13px;
+  color: #c9d1d9; line-height: 1.6;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+.term-bar {
+  background: #161b22; padding: 10px 16px; border-radius: 10px 10px 0 0;
+  display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #30363d;
+}
+.term-dot { width: 12px; height: 12px; border-radius: 50%; }
+.term-dot.r { background: #ff5f57; } .term-dot.y { background: #febc2e; } .term-dot.g { background: #28c840; }
+.term-title { margin-left: 12px; color: #8b949e; font-size: 12px; }
+.term-body { padding: 16px 20px; min-height: 240px; }
+.term-line { display: block; min-height: 1.6em; }
+.term-line.cmd::before { content: "$ "; color: #fdd835; font-weight: 700; }
+.term-line.info { color: #8b949e; } .term-line.dim { color: #6e7681; }
+.term-line.k { color: #79c0ff; font-weight: 600; }
+.term-line.ok { color: #56d364; font-weight: 600; }
+.term-line.err { color: #ff7b72; font-weight: 700; }
+.term-line.hi { color: #f8f8f2; font-weight: 700; }
+.term-cursor { display: inline-block; width: 9px; height: 14px; background: #56d364; vertical-align: -2px; animation: blink 1s steps(2, start) infinite; margin-left: 2px; }
+@keyframes blink { to { visibility: hidden; } }
+
+.term-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin: 24px 0 0; }
+.term-tab {
+  background: transparent; border: none; padding: 10px 18px;
+  font-size: 13px; font-family: inherit; font-weight: 600; color: var(--text-muted);
+  cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px;
+}
+.term-tab:hover { color: var(--text); }
+.term-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.term-pane { display: none; padding: 14px 0 0; }
+.term-pane.active { display: block; }
+.term-controls { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.term-btn {
+  background: var(--accent); color: #fff; border: none; border-radius: 6px;
+  padding: 7px 14px; font-size: 12px; font-family: inherit; font-weight: 600;
+  cursor: pointer; letter-spacing: 0.04em;
+  transition: filter 0.12s, transform 0.1s;
+}
+.term-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.term-btn.fast { background: #2e7d32; }
+.term-btn.secondary { background: #424242; }
+
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px; margin: 24px 0;
+}
+.stat-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 16px 14px;
+}
+.stat-num { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+.stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 6px; }
+.stat-card.alert { background: linear-gradient(180deg, #ffebee 0%, #ffcdd2 100%); border-color: #d32f2f; }
+.stat-card.alert .stat-num { color: #b71c1c; }
+.stat-card.alert .stat-label { color: #b71c1c; font-weight: 700; }
+
+.verdict-banner {
+  border-radius: 12px; padding: 24px 28px; margin: 8px 0 28px;
+  display: flex; align-items: center; gap: 24px; font-weight: 700;
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(211, 47, 47, 0.35);
+  border: 2px solid #ffcdd2;
+}
+.v-badge { font-size: 22px; font-weight: 800; padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.18); letter-spacing: 0.1em; border: 2px solid rgba(255,255,255,0.4); }
+.v-text { font-size: 15px; line-height: 1.5; }
+.v-text b { font-size: 18px; }
+
+.skills-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin: 24px 0;
+}
+.skill-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px;
+  border-left: 5px solid #c8e6c9;
+}
+.skill-card.l1 { border-left-color: #c8e6c9; }
+.skill-card.l2 { border-left-color: #81c784; }
+.skill-card.l3 { border-left-color: #388e3c; }
+.skill-card.arch { border-left-color: #1b5e20; border-left-width: 7px; background: linear-gradient(180deg, #fff, #f1f8e9); }
+.skill-card .layer-tag {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 8px; border-radius: 999px;
+  background: var(--border); color: var(--text-muted);
+  display: inline-block; margin-bottom: 10px;
+}
+.skill-card.l1 .layer-tag { background: #c8e6c9; color: #1b5e20; }
+.skill-card.l2 .layer-tag { background: #81c784; color: #1b5e20; }
+.skill-card.l3 .layer-tag { background: #388e3c; color: #fff; }
+.skill-card.arch .layer-tag { background: #1b5e20; color: #ffeb3b; }
+.skill-card h4 { margin: 0 0 8px; font-size: 15px; }
+.skill-card p { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+.skill-card code { font-size: 12px; }
+
+.contact-banner {
+  background: linear-gradient(135deg, #4527a0 0%, #311b92 100%);
+  color: #fff; padding: 56px 64px; text-align: center;
+}
+.contact-banner h3 { font-size: 28px; margin: 0 0 12px; }
+.contact-banner p { font-size: 16px; color: #d1c4e9; max-width: 50ch; margin: 0 auto 20px; }
+.contact-btn {
+  display: inline-block; background: #fff; color: var(--accent);
+  padding: 12px 24px; border-radius: 999px; font-weight: 700; letter-spacing: 0.04em;
+  font-size: 14px; transition: transform 0.12s, box-shadow 0.12s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.contact-btn:hover { transform: translateY(-2px); text-decoration: none; box-shadow: 0 8px 22px rgba(0,0,0,0.22); }
+
+.foot {
+  background: var(--bg-dark); color: var(--text-dim);
+  padding: 28px 64px; font-size: 13px; text-align: center;
+}
+.foot a { color: #d1c4e9; }
+
+@media (max-width: 800px) {
+  .hero { padding: 48px 24px 36px; }
+  .hero h1 { font-size: 36px; }
+  .hero .tagline { font-size: 18px; }
+  .section { padding: 48px 24px; }
+  .contact-banner { padding: 40px 24px; }
+  .foot { padding: 24px; }
+  .lang-bar { top: 8px; right: 8px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <a href="../neogen/">EN</a>
+  <a href="./" class="active">FR</a>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Neo Carbone · NeoGen</span>
+    <h1>Logiciel malléable<br>que vos clients peuvent<br>modeler — en toute sécurité.</h1>
+    <p class="tagline">IA pilotée par spécifications pour SaaS B2B où chaque client veut sa propre variante.</p>
+    <p class="pitch">
+      Vos clients ne veulent pas soumettre des demandes de fonctionnalités. Ils veulent que leur logiciel s'ajuste à leur entreprise. <b>NeoGen</b> permet à chaque locataire de remodeler votre produit par des requêtes en langage naturel, avec un vérificateur dans le chemin de confiance pour qu'aucune modification ne casse rien. Thèmes, tableaux de bord, règles de workflow, même règles d'autorisation — tout s'exprime en <b>compétences typées</b> que le système valide avant d'appliquer. <b>Le vérificateur est la porte de confiance. L'agent n'est que le proposant.</b>
+    </p>
+  </div>
+</header>
+
+<section class="section problem">
+  <div class="section-inner">
+    <h2>Le problème des ERP de marché intermédiaire.</h2>
+    <p class="lede">Dès que votre clientèle dépasse une poignée de segments, le carnet de fonctionnalités cesse d'être une feuille de route et devient plusieurs.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h4>Demandes de fonctionnalités divergentes</h4>
+        <p>Chaque client veut un workflow différent, un tableau de bord différent, un rapport différent. Coder chaque cas à la main ne se met pas à l'échelle.</p>
+      </div>
+      <div class="problem-card">
+        <h4>« Personnalisable » signifie souvent non sécurisé</h4>
+        <p>Les écrans de configuration atteignent vite un plafond. Au-delà, les clients veulent des plugins, des intégrations, des scripts — et c'est vous qui assumez la casse.</p>
+      </div>
+      <div class="problem-card">
+        <h4>Les agents de codage ne règlent pas le problème</h4>
+        <p>Cursor et Copilot rendent les développeurs plus rapides à écrire le même code. Ils ne rendent pas les changements pilotés par le client <em>sécuritaires</em>.</p>
+      </div>
+      <div class="problem-card">
+        <h4>Les fuites de données entre locataires sont une mort en conformité</h4>
+        <p>L'isolation entre locataires est difficile à bien faire et facile à briser. Une seule constatation d'audit peut entraîner une année de nettoyage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <h2>Comment NeoGen change l'équation.</h2>
+    <p class="lede">Trois engagements. Chacun est vérifiable; chacun se compose avec les autres.</p>
+
+    <div class="approach-row">
+      <div class="approach-card">
+        <span class="num">1</span>
+        <h4>Génération pilotée par spécifications</h4>
+        <p>Le produit, c'est la spec. Le code en est généré — migrations, politiques RLS, API, tests. Quand la spec change, le code se redérive. Vos ingénieurs écrivent ce qui est véritablement nouveau; le reste, c'est du templating.</p>
+      </div>
+      <div class="approach-card">
+        <span class="num">2</span>
+        <h4>Compétences comme interface utilisateur</h4>
+        <p>Les clients remodèlent le produit en invoquant des <b>compétences</b> (skills) — opérations typées, à portée de capacités, demandées en langage naturel. Chaque invocation passe par un vérificateur avant d'être appliquée. Les couches d'engagement familières L1/L2/L3 (thématique, structurel, profond) deviennent des formes de paramètres précises du même gabarit générique.</p>
+      </div>
+      <div class="approach-card">
+        <span class="num">3</span>
+        <h4>Vérificateur dans le chemin de confiance</h4>
+        <p>Chaque vérification retourne une de trois réponses : <b>Hold</b> (c'est sécuritaire), <b>Fail(témoin)</b> (voici exactement ce qui briserait), <b>Unknown</b> (on ne sait pas — escalade). Pas de réessais silencieux, pas de fausse confiance. C'est ce qui rend le changement piloté par le client réellement sécuritaire.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <h2>Le pipeline qui le fait.</h2>
+    <p class="lede">Six étapes, une direction, avec des arêtes de rétroaction qui ferment la boucle. Le pipeline transforme un prototype de départ en un système de production multi-locataire vérifié et signé — et le maintient en synchronisation pendant que vos clients le remodèlent.</p>
+
+    <div class="diagram-wrap">
+      <pre class="mermaid">
+flowchart LR
+    classDef stage fill:#ff9800,stroke:#bf360c,stroke-width:3px,color:#ffffff,font-weight:bold
+    classDef stageEvolve fill:#e65100,stroke:#bf360c,stroke-width:5px,color:#ffffff,font-weight:bold
+
+    s1["1. CAPTURE<br/>lire votre<br/>système actuel"]:::stage
+    s2["2. SPECIFY<br/>schéma typé<br/>+ invariants"]:::stage
+    s3["3. GENERATE<br/>code à partir<br/>de la spec"]:::stage
+    s4["4. VERIFY<br/>vérifications<br/>du moins coûteux<br/>au plus coûteux"]:::stage
+    s5["5. DEPLOY<br/>signé,<br/>conforme"]:::stage
+    s6["6. EVOLVE<br/>changements<br/>clients réinjectés"]:::stageEvolve
+
+    s1 --> s2 --> s3 --> s4 --> s5 --> s6
+    s6 -. deltas de spec .-> s2
+    s4 -. Fail(témoin) .-> s2
+      </pre>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <h2>Compétences, selon la profondeur de ce qu'elles touchent.</h2>
+    <p class="lede">Une compétence est une opération nommée et typée qu'un client peut invoquer. Les couches d'engagement familières <b>L1 / L2 / L3</b> demeurent le vocabulaire utilisateur. En dessous, chaque couche est une forme de paramètres du même gabarit générique — et le vérificateur lit les paramètres pour décider quoi vérifier.</p>
+
+    <div class="skills-row">
+      <div class="skill-card l1">
+        <span class="layer-tag">L1 · cosmétique</span>
+        <h4>Thèmes &amp; libellés</h4>
+        <p>« Mets ma couleur de marque en bleu. » « Modifie le texte du courriel de rappel. » Vérification de types seulement. S'applique immédiatement. Pas d'exposition aux invariants.</p>
+      </div>
+      <div class="skill-card l2">
+        <span class="layer-tag">L2 · structurel</span>
+        <h4>Tableaux de bord &amp; vues</h4>
+        <p>« Ajoute un KPI de revenus à mon tableau de bord. » « Affiche ces colonnes dans la vue client. » Isolation entre locataires assurée. Portée des données confinée à celles du client.</p>
+      </div>
+      <div class="skill-card l3">
+        <span class="layer-tag">L3 · profond</span>
+        <h4>Comportement &amp; règles</h4>
+        <p>« Envoie un suivi quand le paiement est en retard de 30 jours. » « Achemine les rehaussements de plan-service à l'équipe abonnements. » Gauntlet d'invariants complet. Trace d'audit signée.</p>
+      </div>
+      <div class="skill-card arch">
+        <span class="layer-tag">Région architecturale</span>
+        <h4>Autorisation &amp; schéma</h4>
+        <p>« Resserre l'accès à la table clients pour que seuls les administrateurs facturation lisent les montants de factures. » Preuves formelles requises. L'intention du client est honorée; la base de données n'est pas touchée directement.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;font-size:14px;color:var(--text-muted);font-style:italic;">La même opération peut atterrir dans des couches différentes selon ce qui change précisément. Modifier le texte d'un courriel, c'est L1; recâbler le déclenchement de ce courriel, c'est L3. Le vérificateur lit les paramètres — pas la catégorie.</p>
+  </div>
+</section>
+
+<section id="live-demo" class="section">
+  <div class="section-inner">
+    <span class="demo-eyebrow">▶  Démo en direct</span>
+    <h2>Ce n'est pas une présentation. C'est un binaire qui tourne sur un vrai prototype.</h2>
+    <p class="lede">Les chiffres ci-dessous proviennent de l'exécution de <code>neogen capture</code> sur un véritable prototype CVAC en service-terrain. Le rapport de dérive ensuite vient d'une régression connue qu'on a injectée dans un petit dépôt de spec. <strong>Toutes les sorties sont réelles.</strong></p>
+
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px;">
+      <strong>Ce sont de véritables enregistrements de terminal</strong> — pas des animations. Les fichiers <code>.cast</code> sont des captures à l'octet près du binaire <code>neogen</code> exécuté sur un vrai prototype, rejouées dans votre navigateur via <a href="https://asciinema.org/" target="_blank" rel="noopener">asciinema</a>. Pause, navigation, lecture; le tempo est celui du binaire.
+    </p>
+
+    <div class="term-tabs">
+      <button class="term-tab active" data-pane="t-cap">▶ neogen capture</button>
+      <button class="term-tab" data-pane="t-drift">▶ neogen drift</button>
+    </div>
+
+    <div class="term-pane active" id="t-cap">
+      <div id="player-capture" style="margin: 16px 0 28px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.18);"></div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num">3 570</div><div class="stat-label">Fichiers inventoriés</div></div>
+        <div class="stat-card"><div class="stat-num">2 602</div><div class="stat-label">Règles d'autorisation</div></div>
+        <div class="stat-card alert"><div class="stat-num">498</div><div class="stat-label">Permissives (fuite locataire)</div></div>
+        <div class="stat-card alert"><div class="stat-num">326</div><div class="stat-label">Tables affectées (distinctes)</div></div>
+      </div>
+
+      <div class="verdict-banner">
+        <div class="v-badge">FAIL</div>
+        <div class="v-text">
+          <b>Isolation locataire : Fail (avec témoin structuré)</b><br>
+          326 tables exposent des données entre locataires à cause de politiques <code style="background:rgba(255,255,255,0.18);color:#fff;padding:1px 6px;border-radius:3px">USING (true)</code>. Le vérificateur nomme chaque contrevenant. C'est exactement la surface qu'une <b>compétence en région architecturale</b> médierait quand les clients demandent à resserrer l'accès.
+        </div>
+      </div>
+    </div>
+
+    <div class="term-pane" id="t-drift">
+      <div id="player-drift" style="margin: 16px 0 28px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.18);"></div>
+
+      <p style="font-size:14px;color:var(--text-muted);margin-top:14px;">
+        <strong>Ce qui vient de se passer :</strong> Deux captures, à un commit d'écart. Entre les deux, une colonne locataire a été retirée de la table <code>customers</code> et une politique permissive a été ajoutée. <code>neogen drift</code> a détecté les deux régressions, a lié chacune à une table et une politique précises par leur nom, et a refusé d'appliquer. <strong>Le vérificateur est la porte de confiance. L'agent n'est que le proposant.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="contact-banner">
+  <h3>Voir ça sur votre code source ?</h3>
+  <p>NeoGen est en développement actif avec des cibles d'engagement en SaaS B2B et ERP. On exécute des pilotes capture-et-audit en jours, pas en trimestres.</p>
+  <a class="contact-btn" href="mailto:hello@neocarbone.ai?subject=NeoGen%20-%20intérêt%20pilote">Nous contacter →</a>
+</section>
+
+<footer class="foot">
+  © 2026 Neo Carbone · <a href="https://github.com/Neo-Carbone">github.com/Neo-Carbone</a>
+</footer>
+
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'neutral', flowchart: { htmlLabels: true, curve: 'basis' } });
+
+let driftPlayerCreated = false;
+document.querySelectorAll('.term-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.dataset.pane;
+    btn.parentElement.querySelectorAll('.term-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    let n = btn.parentElement.nextElementSibling;
+    while (n && !n.classList.contains('term-tabs')) {
+      if (n.classList && n.classList.contains('term-pane')) {
+        n.classList.toggle('active', n.id === targetId);
+      }
+      n = n.nextElementSibling;
+    }
+    if (targetId === 't-drift' && !driftPlayerCreated) {
+      AsciinemaPlayer.create('./drift.cast', document.getElementById('player-drift'), {
+        cols: 96, rows: 30, idleTimeLimit: 1.0, theme: 'asciinema', fit: 'width', poster: 'npt:0:1'
+      });
+      driftPlayerCreated = true;
+    }
+  });
+});
+
+AsciinemaPlayer.create('./capture.cast', document.getElementById('player-capture'), {
+  cols: 96, rows: 30, idleTimeLimit: 1.0, theme: 'asciinema', fit: 'width', poster: 'npt:0:1', autoplay: false
+});
+
+// Asciinema-player handles all terminal interaction natively
+// (play, pause, scrub, replay). No fake animation needed — the .cast
+// files are byte-accurate recordings of the actual binary.
+</script>
+</body>
+</html>

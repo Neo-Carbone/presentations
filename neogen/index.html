@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NeoGen — malleable software for B2B SaaS</title>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/asciinema-player@3/dist/bundle/asciinema-player.css" />
+<script src="https://cdn.jsdelivr.net/npm/asciinema-player@3/dist/bundle/asciinema-player.min.js"></script>
 <style>
 :root {
   --bg: #fafafa;
@@ -393,6 +395,27 @@ code {
 }
 .foot a { color: #d1c4e9; }
 
+/* language switcher */
+.lang-bar {
+  position: fixed; top: 16px; right: 16px;
+  display: flex; gap: 4px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+  padding: 4px;
+  z-index: 100;
+  font-size: 13px;
+  font-weight: 600;
+}
+.lang-bar a {
+  color: rgba(255,255,255,0.7);
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.lang-bar a.active { background: rgba(255,255,255,0.18); color: #fff; }
+.lang-bar a:hover { color: #fff; text-decoration: none; }
+
 @media (max-width: 800px) {
   .hero { padding: 48px 24px 36px; }
   .hero h1 { font-size: 36px; }
@@ -400,10 +423,16 @@ code {
   .section { padding: 48px 24px; }
   .contact-banner { padding: 40px 24px; }
   .foot { padding: 24px; }
+  .lang-bar { top: 8px; right: 8px; font-size: 12px; }
 }
 </style>
 </head>
 <body>
+
+<div class="lang-bar">
+  <a href="./" class="active">EN</a>
+  <a href="../neogen-fr/">FR</a>
+</div>
 
 <!-- ============== HERO ============== -->
 <header class="hero">
@@ -412,7 +441,7 @@ code {
     <h1>Malleable software<br>your customers can shape — safely.</h1>
     <p class="tagline">Spec-driven AI for B2B SaaS where every customer wants their own variant.</p>
     <p class="pitch">
-      Your customers don't want feature requests. They want their software to fit their business. <b>NeoGen</b> lets each tenant reshape your product through natural-language requests, with a verifier in the trust path so nothing breaks. Theming, dashboards, workflow rules, even authorization rules — all expressed as <b>typed skills</b> the system checks before applying. It's <b>Zapier-shaped at the user surface, with a verifier behind it.</b>
+      Your customers don't want feature requests. They want their software to fit their business. <b>NeoGen</b> lets each tenant reshape your product through natural-language requests, with a verifier in the trust path so nothing breaks. Theming, dashboards, workflow rules, even authorization rules — all expressed as <b>typed skills</b> the system checks before applying. <b>The verifier is the trust gate. The agent is just the proposer.</b>
     </p>
   </div>
 </header>
@@ -538,21 +567,17 @@ flowchart LR
     <h2>This isn't slideware. It's a binary running on a real prototype.</h2>
     <p class="lede">The numbers below come from running <code>neogen capture</code> on an actual HVAC field-service prototype. The drift report after that is from a known regression we injected into a small spec repo. <strong>All output is real.</strong></p>
 
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px;">
+      <strong>These are real terminal recordings</strong> — not animations. The <code>.cast</code> files are byte-accurate captures of the actual <code>neogen</code> binary running on a real prototype, replayed in your browser via <a href="https://asciinema.org/" target="_blank" rel="noopener">asciinema</a>. Pause, scrub, replay; the timing is the binary's actual timing.
+    </p>
+
     <div class="term-tabs">
       <button class="term-tab active" data-pane="t-cap">▶ neogen capture</button>
       <button class="term-tab" data-pane="t-drift">▶ neogen drift</button>
     </div>
 
     <div class="term-pane active" id="t-cap">
-      <div class="term-controls">
-        <button class="term-btn" id="t-cap-run">▶ Run</button>
-        <button class="term-btn fast" id="t-cap-fast">⏩ Fast-forward</button>
-        <button class="term-btn secondary" id="t-cap-reset">↺ Reset</button>
-      </div>
-      <div class="term">
-        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-title">neogen v0.0.0</span></div>
-        <div class="term-body" id="t-cap-body"></div>
-      </div>
+      <div id="player-capture" style="margin: 16px 0 28px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.18);"></div>
 
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-num">3,570</div><div class="stat-label">Files inventoried</div></div>
@@ -571,15 +596,7 @@ flowchart LR
     </div>
 
     <div class="term-pane" id="t-drift">
-      <div class="term-controls">
-        <button class="term-btn" id="t-drift-run">▶ Run</button>
-        <button class="term-btn fast" id="t-drift-fast">⏩ Fast-forward</button>
-        <button class="term-btn secondary" id="t-drift-reset">↺ Reset</button>
-      </div>
-      <div class="term">
-        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><span class="term-title">neogen v0.0.0</span></div>
-        <div class="term-body" id="t-drift-body"></div>
-      </div>
+      <div id="player-drift" style="margin: 16px 0 28px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.18);"></div>
 
       <p style="font-size:14px;color:var(--text-muted);margin-top:14px;">
         <strong>What just happened:</strong> Two captures, one commit apart. Between them, a tenant column was dropped from the <code>customers</code> table and a permissive policy was added. <code>neogen drift</code> detected both regressions, tied each to a specific table and policy by name, and refused to apply. <strong>The verifier is the trust gate. The agent is just the proposer.</strong>
@@ -603,7 +620,8 @@ flowchart LR
 <script>
 mermaid.initialize({ startOnLoad: true, theme: 'neutral', flowchart: { htmlLabels: true, curve: 'basis' } });
 
-// Tab switching
+// Tab switching — also creates the asciinema player on first activation
+let driftPlayerCreated = false;
 document.querySelectorAll('.term-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     const targetId = btn.dataset.pane;
@@ -616,105 +634,32 @@ document.querySelectorAll('.term-tab').forEach(btn => {
       }
       n = n.nextElementSibling;
     }
+    if (targetId === 't-drift' && !driftPlayerCreated) {
+      AsciinemaPlayer.create('./drift.cast', document.getElementById('player-drift'), {
+        cols: 96, rows: 30,
+        idleTimeLimit: 1.0,
+        theme: 'asciinema',
+        fit: 'width',
+        poster: 'npt:0:1'
+      });
+      driftPlayerCreated = true;
+    }
   });
 });
 
-// Terminal scripts
-const CAP_SCRIPT = [
-  { c: 'cmd', t: './neogen capture --source ~/your-saas-prototype --target /tmp/spec', d: 16 },
-  { c: 'info', t: '', delay: 200 },
-  { c: 'info', t: '2026-04-30T14:34Z  INFO  matched adapter  adapter=lovable', d: 4, delay: 200 },
-  { c: 'dim',  t: '                    walking source tree …', d: 4, delay: 220 },
-  { c: 'dim',  t: '                    parsing 573 SQL migrations …', d: 4, delay: 280 },
-  { c: 'dim',  t: '                    extracting 2,602 authorization rules …', d: 4, delay: 280 },
-  { c: 'dim',  t: '                    classifying integrations · provenance · design system …', d: 4, delay: 250 },
-  { c: 'dim',  t: '                    encoding · signing (Ed25519) …', d: 4, delay: 250 },
-  { c: 'info', t: '2026-04-30T14:34Z  INFO  capture written  /tmp/spec/captures/2026-04-30T14-34Z', d: 4, delay: 200 },
-  { c: 'info', t: '', delay: 200 },
-  { c: 'hi',   t: '── Audit summary ──────────────────────────────────', d: 2, delay: 200 },
-  { c: 'k',    t: '  Files inventoried             3,570', d: 4, delay: 90 },
-  { c: 'k',    t: '  Authorization rules           2,602', d: 4, delay: 90 },
-  { c: 'err',  t: '  Permissive (tenant-leaking)   498   ← regression class', d: 4, delay: 200 },
-  { c: 'err',  t: '  Distinct affected tables      326', d: 4, delay: 200 },
-  { c: 'info', t: '', delay: 180 },
-  { c: 'hi',   t: '── Verdict ────────────────────────────────────────', d: 2, delay: 180 },
-  { c: 'err',  t: '  tenant_isolation: Fail(witness)', d: 6, delay: 250 },
-  { c: 'dim',  t: '    witness names every offender', d: 3, delay: 200 },
-  { c: 'info', t: '', delay: 100 },
-  { c: 'ok',   t: '✓ done in 0.94s', d: 6, delay: 200 },
-];
+// Initial player — capture pane is active by default
+AsciinemaPlayer.create('./capture.cast', document.getElementById('player-capture'), {
+  cols: 96, rows: 30,
+  idleTimeLimit: 1.0,
+  theme: 'asciinema',
+  fit: 'width',
+  poster: 'npt:0:1',
+  autoplay: false
+});
 
-const DRIFT_SCRIPT = [
-  { c: 'cmd', t: './neogen drift --target /tmp/spec --print-summary', d: 16 },
-  { c: 'info', t: '', delay: 200 },
-  { c: 'dim', t: 'loading capture A: 2026-04-30T14-34Z (commit be9ae63f)', d: 3, delay: 230 },
-  { c: 'dim', t: 'loading capture B: 2026-04-30T14-50Z (commit b9f59fae)', d: 3, delay: 230 },
-  { c: 'dim', t: 'computing per-category drift …', d: 3, delay: 280 },
-  { c: 'info', t: '', delay: 150 },
-  { c: 'hi',  t: '── Drift report ──────────────────────────────────────', d: 2, delay: 200 },
-  { c: 'k',   t: '  inventory     +2 files', d: 3, delay: 130 },
-  { c: 'k',   t: '  data_model    ⚠ tenant column dropped from customers', d: 3, delay: 230 },
-  { c: 'err', t: '  rls           ⚠ permissive policy added: customers.all_visible (USING true)', d: 3, delay: 250 },
-  { c: 'k',   t: '  integrations  no change', d: 3, delay: 100 },
-  { c: 'info', t: '', delay: 200 },
-  { c: 'err',  t: '  overall: FAIL', d: 8, delay: 350 },
-  { c: 'info', t: '', delay: 200 },
-  { c: 'dim',  t: 'wrote /tmp/spec/drifts/<from>__<to>/  (signed CBOR + JSON + Markdown)', d: 3, delay: 200 },
-  { c: 'ok',   t: 'FAIL — refusing to apply', d: 5, delay: 200 },
-];
-
-const term = (id) => document.getElementById(id);
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-let running = {};
-
-async function play(id, script, fast = false) {
-  const body = term(id); body.innerHTML = '';
-  running[id] = { abort: false }; const flag = running[id];
-  for (const step of script) {
-    if (flag.abort) return;
-    const line = document.createElement('span');
-    line.className = 'term-line ' + (step.c || '');
-    body.appendChild(line);
-    body.scrollTop = body.scrollHeight;
-    if (fast) line.textContent = step.t;
-    else {
-      const cd = step.d ?? 6;
-      for (let i = 0; i < step.t.length; i++) {
-        if (flag.abort) return;
-        line.textContent += step.t[i];
-        if (i % 4 === 0) body.scrollTop = body.scrollHeight;
-        await sleep(cd);
-      }
-    }
-    if (!fast && step.delay) await sleep(step.delay);
-    else if (fast && step.delay) await sleep(Math.min(step.delay, 30));
-  }
-  const cur = document.createElement('span'); cur.className = 'term-cursor'; body.appendChild(cur);
-}
-
-function abort(id) { if (running[id]) running[id].abort = true; }
-function clr(id) { abort(id); const b = term(id); if (b) b.innerHTML = ''; }
-
-document.getElementById('t-cap-run')?.addEventListener('click', () => { abort('t-cap-body'); play('t-cap-body', CAP_SCRIPT, false); });
-document.getElementById('t-cap-fast')?.addEventListener('click', () => { abort('t-cap-body'); play('t-cap-body', CAP_SCRIPT, true); });
-document.getElementById('t-cap-reset')?.addEventListener('click', () => clr('t-cap-body'));
-document.getElementById('t-drift-run')?.addEventListener('click', () => { abort('t-drift-body'); play('t-drift-body', DRIFT_SCRIPT, false); });
-document.getElementById('t-drift-fast')?.addEventListener('click', () => { abort('t-drift-body'); play('t-drift-body', DRIFT_SCRIPT, true); });
-document.getElementById('t-drift-reset')?.addEventListener('click', () => clr('t-drift-body'));
-
-// Auto-play on intersection
-const demoSection = document.getElementById('live-demo');
-if (demoSection && term('t-cap-body')) {
-  const auto = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !demoSection.dataset.played) {
-        demoSection.dataset.played = '1';
-        play('t-cap-body', CAP_SCRIPT, true);
-      }
-    });
-  }, { threshold: 0.15 });
-  auto.observe(demoSection);
-}
+// Asciinema-player handles all terminal interaction natively
+// (play, pause, scrub, replay). No fake animation needed — the .cast
+// files are byte-accurate recordings of the actual binary.
 </script>
 </body>
 </html>
