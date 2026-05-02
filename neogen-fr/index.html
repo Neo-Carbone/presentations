@@ -387,6 +387,50 @@ flowchart LR
   </div>
 </section>
 
+<!-- ============== RÉGION ARCHITECTURALE ============== -->
+<section class="section" style="background:linear-gradient(180deg,#fff,#fff3e0);">
+  <div class="section-inner">
+    <span style="display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#bf360c;margin-bottom:12px;">En amont du catalogue</span>
+    <h2>Cinq décisions qu'un humain prend — une fois, signées, avant que le catalogue n'existe.</h2>
+    <p class="lede">Les compétences L1 / L2 / L3 sont dérivées <em>mécaniquement</em> du prototype capturé. Mais elles sont dérivées pour <em>une certaine</em> pile cible — et le prototype rarement la fixe complètement. <strong>La région architecturale, c'est là où un humain, conseillé par l'agent architecte, prend un petit ensemble de décisions en amont qui paramétrisent tout ce qui suit.</strong> Le résultat est une valeur typée et signée : l'<em>Enveloppe architecturale</em>.</p>
+
+    <div class="skills-row" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Langage</span>
+        <h4>Rust · TypeScript · Go · …</h4>
+        <p>Compétence de l'équipe, budget de latence, pile en production existante. Fixer le langage, et tout le catalogue se retype contre lui.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Exécution</span>
+        <h4>Docker · Kubernetes · Serverless</h4>
+        <p>Maturité opérationnelle, modèle de location, plafond de coût. Détermine ce que la compétence de déploiement (M4) fait réellement.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Modèle d'exécution</span>
+        <h4>Sync · Workflow · Événementiel</h4>
+        <p>Workflows de longue durée ? RPC simple ? Bus d'événements ? Établit quelles compétences L3 sync/async ont même un sens.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Facteur de forme</span>
+        <h4>Serveur · Mobile · Edge · Embarqué</h4>
+        <p>Où le système s'exécute. Passer à de l'embarqué <code>no_std</code> invalide ~80&nbsp;% des compétences L1/L2 typiques — surfacé <em>avant</em> que le catalogue ne soit construit.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">DevOps</span>
+        <h4>CI · Secrets · Observabilité · IaC</h4>
+        <p>L'enveloppe opérationnelle. Chaque sous-domaine, une énumération étiquetée — jamais une chaîne libre.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding:20px 24px;background:#fff;border-left:4px solid #ef6c00;border-radius:6px;">
+      <p style="margin:0 0 8px;font-size:14.5px;"><strong>Pourquoi l'enveloppe est signée et empreintée à la racine de la spec.</strong></p>
+      <p style="margin:0;font-size:14px;color:var(--text-muted);line-height:1.6;">Changer <code>Postgres</code> pour <code>Cassandra</code> change le sens de toute compétence L2/L3 qui touche aux données. Traiter cela comme une mutation de valeur invaliderait silencieusement le catalogue. Le traiter comme une <em>nouvelle</em> enveloppe — réexécuter la boucle de décision de l'architecte, briser l'empreinte de la spec, forcer M3 Generate à refuser — rend les conséquences explicites. Les changements architecturaux sont une boucle Ralph qu'on relance, pas une valeur qu'on mute.</p>
+    </div>
+
+    <p style="margin-top:20px;font-size:14px;color:var(--text-muted);font-style:italic;">L'entrevue de l'agent architecte est elle-même une boucle Ralph un cran au-dessus du catalogue de compétences : indices du prototype + réponses des intervenants → proposer une enveloppe → adjuger via verdict → geler quand Hold. Même discipline, appliquée à la question de <em>ce pour quoi on construit, au juste</em>.</p>
+  </div>
+</section>
+
 <section id="live-demo" class="section">
   <div class="section-inner">
     <span class="demo-eyebrow">▶  Démo en direct</span>

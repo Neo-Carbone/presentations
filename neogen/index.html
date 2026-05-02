@@ -564,6 +564,50 @@ flowchart LR
   </div>
 </section>
 
+<!-- ============== ARCHITECTURAL REGION ============== -->
+<section class="section" style="background:linear-gradient(180deg,#fff,#fff3e0);">
+  <div class="section-inner">
+    <span style="display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#bf360c;margin-bottom:12px;">Upstream of the catalogue</span>
+    <h2>Five decisions a human makes — once, signed, before the catalogue exists.</h2>
+    <p class="lede">L1 / L2 / L3 skills are derived <em>mechanically</em> from the captured prototype. But they're derived for <em>some</em> target stack — and the prototype rarely pins that down. <strong>The Architectural region is where a human, advised by the architect agent, makes a small set of upstream decisions that parameterise everything below.</strong> The result is a typed, signed value: the <em>Architectural Envelope</em>.</p>
+
+    <div class="skills-row" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Language</span>
+        <h4>Rust · TypeScript · Go · …</h4>
+        <p>Team fluency, latency budget, existing prod stack. Pin the language and the entire catalogue retypes against it.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Runtime</span>
+        <h4>Docker · Kubernetes · Serverless</h4>
+        <p>Ops maturity, tenancy model, cost ceiling. Determines what the deploy skill (M4) actually does.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Execution</span>
+        <h4>Sync · Workflow · Event-driven</h4>
+        <p>Long-running workflows? Plain RPC? Event bus? Sets which sync/async L3 skills are even meaningful.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">Form factor</span>
+        <h4>Server · Mobile · Edge · Embedded</h4>
+        <p>Where the system runs. Switching to embedded <code>no_std</code> invalidates ~80% of typical L1/L2 skills — surfaced <em>before</em> the catalogue is built.</p>
+      </div>
+      <div class="skill-card" style="border-left-color:#ef6c00;border-left-width:6px;background:linear-gradient(180deg,#fff,#fffde7);">
+        <span class="layer-tag" style="background:#ffe0b2;color:#bf360c;">DevOps</span>
+        <h4>CI · Secrets · Observability · IaC</h4>
+        <p>The operational envelope. Each subdomain a tagged enum, never a free-form string.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding:20px 24px;background:#fff;border-left:4px solid #ef6c00;border-radius:6px;">
+      <p style="margin:0 0 8px;font-size:14.5px;"><strong>Why the envelope is signed and root-hashed into the spec.</strong></p>
+      <p style="margin:0;font-size:14px;color:var(--text-muted);line-height:1.6;">Changing <code>Postgres</code> to <code>Cassandra</code> changes the meaning of every L2/L3 skill that touches data. Treating it as a value mutation would silently invalidate the catalogue. Treating it as a <em>new</em> envelope — re-running the architect's decision loop, breaking the spec hash, forcing M3 Generate to refuse — makes the consequences explicit. Architectural changes are a Ralph loop you re-run, not a value you mutate.</p>
+    </div>
+
+    <p style="margin-top:20px;font-size:14px;color:var(--text-muted);font-style:italic;">The architect-agent interview is itself a Ralph loop one altitude above the skill catalogue: prototype hints + stakeholder answers → propose envelope → adjudicate via verdict → freeze when Hold. Same discipline, applied to the question of <em>what we're even building for</em>.</p>
+  </div>
+</section>
+
 <!-- ============== LIVE DEMO ============== -->
 <section id="live-demo" class="section">
   <div class="section-inner">
