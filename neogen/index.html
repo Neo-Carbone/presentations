@@ -610,6 +610,11 @@ flowchart LR
       <p style="margin:0 0 6px;font-size:14px;"><strong>How the envelope stays honest.</strong></p>
       <p style="margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.55;">An architect can't claim a target stack the prototype contradicts. M2.5 cross-check rules read evidence from the captured prototype — browser-DOM file count, workflow-engine imports, tenant-column counts — and refuse envelopes that would silently invalidate the generated code. An <code>Embedded(no_std)</code> claim against a browser-DOM prototype <em>cannot pass</em>; the witness names the offending file count. Soft mismatches surface as <code>Unknown</code>, not <code>Fail</code>, when the architect may legitimately be rebuilding rather than mirroring.</p>
     </div>
+
+    <div style="margin-top:18px;padding:18px 22px;background:#e8f5e9;border-left:3px solid #1b5e20;border-radius:4px;">
+      <p style="margin:0 0 6px;font-size:14px;"><strong>The spec is the questionnaire.</strong></p>
+      <p style="margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.55;">A NeoGen spec doesn't drift while we wait for stakeholders to confirm everything. It exists from day one with explicit gaps — and gaps reduce monotonically across cycles. Each cycle: the architect authors an envelope (with <code>TBD-confirm-with-&lt;name&gt;</code> markers where input is needed); we run <code>neogen specify</code>; the architect extracts a stakeholder-addressed questions doc + an agile-format epics-and-stories doc from the spec output; working session resolves answers; envelope updates; re-derive. <strong>A spec is final when the questions list is empty</strong> — a binary, mechanical criterion. No subjective "is this finished?" judgement.</p>
+    </div>
   </div>
 </section>
 
