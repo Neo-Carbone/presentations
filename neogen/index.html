@@ -626,6 +626,11 @@ flowchart LR
       </ul>
       <p style="margin:8px 0 0;font-size:13px;color:var(--text-muted);font-style:italic;">A vanilla solo-founder client pays no complexity tax for the high-touch features they don't use. Field Universe sits at mode 4.</p>
     </div>
+
+    <div style="margin-top:18px;padding:18px 22px;background:#fff;border-left:3px solid #7b1fa2;border-radius:4px;">
+      <p style="margin:0 0 6px;font-size:14px;"><strong>Build time vs. run time — NeoGen is upstream of the runtime.</strong></p>
+      <p style="margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.55;">For clients opting into runtime malleability, NeoGen's M3 Generate produces code that uses an existing runtime SDK as its malleable layer (the canonical reference is <code>@malleable/sdk</code> v0.5.0, the runtime built for Field Universe — already shipping with 4,546 vitest tests + 293 Playwright tests, hand-built for FieldNOW). NeoGen contributes the build-time pipeline (capture, spec, generate, verify, deploy, evolve); the runtime SDK contributes the per-user modification pipeline (intent → verify → publish on a branch). Different lifecycle phases. They compose. Ralph loops are Geoff Huntley's pattern, applied in parallel by both systems — not a NeoGen contribution.</p>
+    </div>
   </div>
 </section>
 

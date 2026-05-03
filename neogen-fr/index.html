@@ -449,6 +449,11 @@ flowchart LR
       </ul>
       <p style="margin:8px 0 0;font-size:13px;color:var(--text-muted);font-style:italic;">Un client fondateur-solo ne paie aucun coût de complexité pour les fonctionnalités haut-toucher qu'il n'utilise pas. Field Universe se situe au mode 4.</p>
     </div>
+
+    <div style="margin-top:18px;padding:18px 22px;background:#fff;border-left:3px solid #7b1fa2;border-radius:4px;">
+      <p style="margin:0 0 6px;font-size:14px;"><strong>Construction vs. exécution — NeoGen est en amont du runtime.</strong></p>
+      <p style="margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.55;">Pour les clients qui adoptent la malléabilité à l'exécution, M3 Generate produit du code qui utilise un SDK runtime existant comme couche malléable (la référence canonique est <code>@malleable/sdk</code> v0.5.0, le runtime construit pour Field Universe — déjà en production avec 4 546 tests vitest + 293 tests Playwright, taillé sur mesure pour FieldNOW). NeoGen contribue le pipeline construction (capture, spec, generate, verify, deploy, evolve); le SDK runtime contribue le pipeline modification par utilisateur (intention → vérification → publication sur une branche). Phases de cycle de vie différentes. Ils se composent. Les boucles Ralph sont le pattern de Geoff Huntley, appliquées en parallèle par les deux systèmes — pas une contribution NeoGen.</p>
+    </div>
   </div>
 </section>
 
