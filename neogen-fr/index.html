@@ -438,6 +438,17 @@ flowchart LR
       <p style="margin:0 0 6px;font-size:14px;"><strong>La spec, c'est le questionnaire.</strong></p>
       <p style="margin:0;font-size:13.5px;color:var(--text-muted);line-height:1.55;">Une spec NeoGen ne dérive pas pendant qu'on attend les confirmations. Elle existe dès le jour un avec des lacunes explicites — et les lacunes diminuent de manière monotone d'un cycle à l'autre. Chaque cycle : l'architecte rédige une enveloppe (avec des marqueurs <code>TBD-confirm-with-&lt;nom&gt;</code> là où l'apport des intervenants est requis); on roule <code>neogen specify</code>; l'architecte extrait du résultat un document de questions adressées aux intervenants et un document d'epics-et-récits format agile; la séance de travail résout les réponses; l'enveloppe est mise à jour; on re-dérive. <strong>Une spec est finale quand la liste de questions est vide</strong> — critère binaire et mécanique. Pas de jugement subjectif « est-ce terminé ? ».</p>
     </div>
+
+    <div style="margin-top:18px;padding:18px 22px;background:#fff;border-left:3px solid #1565c0;border-radius:4px;">
+      <p style="margin:0 0 6px;font-size:14px;"><strong>Quatre modes d'engagement — ce que votre client apporte.</strong></p>
+      <ul style="margin:0;padding-left:22px;font-size:13.5px;color:var(--text-muted);line-height:1.6;">
+        <li><strong>1. Lovable « vanille »</strong> — seulement le prototype. Fondateur solo, vibe-codé.</li>
+        <li><strong>2. Lovable + docs dans le repo</strong> — prototype avec <code>Specs/</code> / <code>docs/</code> dans git.</li>
+        <li><strong>3. Lovable + docs externes</strong> — prototype + dossier séparé de PRDs (Drive, Notion). <code>--client-docs &lt;chemin&gt;</code> parcourt <code>.md</code> / <code>.txt</code> / <code>.docx</code> / <code>.pdf</code>; tout atterrit dans le bundle signé avec preuve cryptographique anti-altération.</li>
+        <li><strong>4. + engagements verbaux</strong> — modes 1–3 plus les affirmations d'intervenants faites en appel / DM qui n'existent nulle part par écrit. Typés via <code>StoryRef::Verbal</code> lors de l'entrevue architecte.</li>
+      </ul>
+      <p style="margin:8px 0 0;font-size:13px;color:var(--text-muted);font-style:italic;">Un client fondateur-solo ne paie aucun coût de complexité pour les fonctionnalités haut-toucher qu'il n'utilise pas. Field Universe se situe au mode 4.</p>
+    </div>
   </div>
 </section>
 
