@@ -448,6 +448,7 @@ flowchart LR
         <li><strong>4. + engagements verbaux</strong> — modes 1–3 plus les affirmations d'intervenants faites en appel / DM qui n'existent nulle part par écrit. Typés via <code>StoryRef::Verbal</code> lors de l'entrevue architecte.</li>
       </ul>
       <p style="margin:8px 0 0;font-size:13px;color:var(--text-muted);font-style:italic;">Un client fondateur-solo ne paie aucun coût de complexité pour les fonctionnalités haut-toucher qu'il n'utilise pas. Field Universe se situe au mode 4.</p>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--text-muted);line-height:1.55;"><strong>Plus un canal base de données optionnel.</strong> <code>--db-dump &lt;url&gt;</code> accepte un dump SQL DDL (<code>file://</code>, <code>http://</code>, <code>https://</code>) — pour les prototypes Lovable+Supabase, la source canonique est une Supabase Edge Function qui émet extensions, enums, tables, FKs, indexes, fonctions, triggers, vues, politiques RLS et publications realtime. Capturé sous l'étiquette <code>db:schema-dump</code> avec <code>Confidence::High</code>. <em>Pourquoi : les migrations commises reflètent ce qui a été écrit ; le dump reflète ce qui est déployé</em> — la dérive de schéma entre les deux dans Lovable cloud est courante, et les preuves en aval ont besoin des deux.</p>
     </div>
 
     <div style="margin-top:18px;padding:18px 22px;background:#fff;border-left:3px solid #7b1fa2;border-radius:4px;">
