@@ -165,6 +165,52 @@ canonical CBOR receipt carrying the entire witness chain.
 </div>
 </div>
 
+<h2>Architect feedback UI — the human-in-the-loop surface</h2>
+
+<p>
+The automated pipeline (above) is one of two surfaces the substrate exposes.
+The other is the <strong>architect feedback UI</strong> — a browser app that
+surfaces the verifier's witnesses to a human architect and lets each one be
+resolved with a single click. Every architect decision opens a typed PR on the
+spec repo with full provenance (witness id, action, tier, decision timestamp).
+The substrate never silently absorbs a witness; the architect either resolves
+it or it stays open.
+</p>
+
+<div class="figure">
+<img src="screens/01-header.png" alt="NeoGen architect feedback UI — cold-start state with setup form" style="width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:6px"/>
+<div class="figure-caption">
+Fig 3 — Architect feedback UI cold start. Setup panel takes a Lovable
+prototype source, a NeoGen spec target, an envelope file, and (optionally)
+a client-docs folder for engagement-mode 3. The run panel
+(<em>capture · specify · generate-stories · run full cycle</em>) drives the
+pipeline stages.
+</div>
+</div>
+
+<div class="figure">
+<img src="screens/02-target-loaded.png" alt="NeoGen architect feedback UI loaded against real FieldNOW spec" style="width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:6px"/>
+<div class="figure-caption">
+Fig 4 — Same UI loaded against the real FieldNOW spec: 83 docs captured
+(2.4 MB), 15 personas / 25 epics / 124 stories, proof verdict
+<strong>Fail</strong> (8 open witnesses surfaced for architect resolution).
+Real artifact state, not a mockup.
+</div>
+</div>
+
+<div class="figure">
+<img src="screens/03-witnesses.png" alt="Eight P3 persona-coverage witnesses with drop / add-story / ask-client / amend-envelope actions" style="width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:6px"/>
+<div class="figure-caption">
+Fig 5 — Architect feedback panel with all eight P3 persona-coverage
+witnesses visible (one per uncovered persona: Subcontractor, Nav, Flow,
+Quant, Planner, Local Growth, Retention, Paid Search). Each row offers four
+typed actions — <em>drop</em> (Tier-2 hygiene) · <em>add story</em> (Tier-3
+behavioural) · <em>ask client</em> (Tier-1 cosmetic) · <em>amend envelope</em>
+(Tier-4 architectural). The action click opens a PR on the spec repo with
+the witness chain in the body; no decision lives only in someone's memory.
+</div>
+</div>
+
 <h2>Three-way independent verification</h2>
 
 <p>
