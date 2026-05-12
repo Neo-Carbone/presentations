@@ -7,6 +7,7 @@ Public, client-facing presentations served via GitHub Pages at:
 ## Decks
 
 - **[neogen/](./neogen/)** — NeoGen, malleable software for B2B SaaS. Live demo using real output from running the binary on an HVAC field-service prototype.
+- **[fieldnow-m3-launch/](./fieldnow-m3-launch/)** — NeoGen × FieldNOW: M3-α-launch status update (2026-05-12). First AI-generated story shipped end-to-end through the substrate to [`Neo-Carbone/fieldnow-codebase#1`](https://github.com/Neo-Carbone/fieldnow-codebase/pull/1) with three independent layers of verification (local gates · in-PR signed bundle · GitHub Actions). Tagline: *software that bends to user needs — all the while staying compliant.*
 
 ## Structure
 
