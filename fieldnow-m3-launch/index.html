@@ -65,7 +65,11 @@ and the public key.
 <table>
 <tr><th>Story</th><td><code>US-1.01.1</code> — As an Owner/Admin, I can create and configure a business tenant with business hours, service area, and company settings</td></tr>
 <tr><th>Target repo</th><td><a href="https://github.com/Neo-Carbone/fieldnow-codebase">Neo-Carbone/fieldnow-codebase</a></td></tr>
-<tr><th>Pull request</th><td><a href="https://github.com/Neo-Carbone/fieldnow-codebase/pull/1">#1 — m3(US-1.01.1): iteration 1</a></td></tr>
+<tr><th>Pull requests</th><td>
+<a href="https://github.com/Neo-Carbone/fieldnow-codebase/pull/1">#1 — US-1.01.1 (tenant creation)</a> ·
+<a href="https://github.com/Neo-Carbone/fieldnow-codebase/pull/2">#2 — US-1.01.2 (role assignment)</a> ·
+<a href="https://github.com/Neo-Carbone/fieldnow-codebase/pull/3">#3 — US-1.01.3 (team invitations)</a><br>
+<span style="color:var(--good)">All three live · all gates Hold · three CI jobs Hold per PR</span></td></tr>
 <tr><th>Files</th><td>14 (Rust server + TypeScript client + tests + substrate artifacts)</td></tr>
 <tr><th>Coding agent</th><td>Claude Sonnet 4.6 via the NeoGen substrate</td></tr>
 <tr><th>Time to ship</th><td>~4 minutes per iteration end-to-end</td></tr>
@@ -211,66 +215,78 @@ the witness chain in the body; no decision lives only in someone's memory.
 </div>
 </div>
 
-<h2>Three-way independent verification</h2>
+<h2>Four-way independent verification</h2>
 
 <p>
-The substrate's <span class="check">Hold</span> claim is verified three independent ways
-for any PR opened by this pipeline. The three layers cross-check each other; the substrate
-is not its own only witness.
+The substrate's <span class="check">Hold</span> claim is verified four independent ways
+for any PR opened by this pipeline. The four oracles cross-check each other; the
+substrate is not its own only witness.
 </p>
 
 <div class="figure">
-<svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:720px;display:block;margin:0 auto;font-family:-apple-system,sans-serif;font-size:13px">
+<svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:760px;display:block;margin:0 auto;font-family:-apple-system,sans-serif;font-size:12px">
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0a7d3a"/>
+    </marker>
+  </defs>
   <!-- center claim -->
-  <ellipse cx="360" cy="60" rx="160" ry="36" fill="#dff4e3" stroke="#0a7d3a" stroke-width="2"/>
-  <text x="360" y="55" text-anchor="middle" font-weight="700" font-size="15">PR #1: Hold ✓</text>
-  <text x="360" y="75" text-anchor="middle" font-size="11" fill="#0a7d3a">witnessed by three independent layers</text>
+  <ellipse cx="380" cy="60" rx="220" ry="38" fill="#dff4e3" stroke="#0a7d3a" stroke-width="2"/>
+  <text x="380" y="55" text-anchor="middle" font-weight="700" font-size="15">Each PR's Hold verdict</text>
+  <text x="380" y="76" text-anchor="middle" font-size="11" fill="#0a7d3a">witnessed by four independent oracles</text>
 
-  <!-- three columns -->
+  <!-- four columns -->
   <g>
-    <rect x="20"  y="150" width="200" height="140" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
-    <text x="120" y="178" text-anchor="middle" font-weight="600" fill="#0066cc">① Local substrate</text>
-    <text x="120" y="200" text-anchor="middle" font-size="11" fill="#333">neogen-m3 binary</text>
-    <text x="120" y="220" text-anchor="middle" font-size="11" fill="#555">install / tsc / vitest /</text>
-    <text x="120" y="236" text-anchor="middle" font-size="11" fill="#555">playwright gates</text>
-    <text x="120" y="256" text-anchor="middle" font-size="11" fill="#555">+ P10 envelope-language</text>
-    <text x="120" y="272" text-anchor="middle" font-size="11" fill="#555">+ K₃ aggregate</text>
+    <rect x="10"  y="160" width="170" height="155" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
+    <text x="95" y="183" text-anchor="middle" font-weight="600" fill="#0066cc">① Local substrate</text>
+    <text x="95" y="203" text-anchor="middle" font-size="10.5" fill="#333">neogen-m3 binary</text>
+    <text x="95" y="220" text-anchor="middle" font-size="10.5" fill="#555">install / tsc /</text>
+    <text x="95" y="234" text-anchor="middle" font-size="10.5" fill="#555">vitest / playwright</text>
+    <text x="95" y="252" text-anchor="middle" font-size="10.5" fill="#555">+ P10 envelope-lang</text>
+    <text x="95" y="268" text-anchor="middle" font-size="10.5" fill="#555">+ K₃ aggregate</text>
+    <text x="95" y="298" text-anchor="middle" font-size="10" fill="#888" font-style="italic">generation time</text>
 
-    <rect x="260" y="150" width="200" height="140" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
-    <text x="360" y="178" text-anchor="middle" font-weight="600" fill="#0066cc">② In-PR bundle</text>
-    <text x="360" y="200" text-anchor="middle" font-size="11" fill="#333">.neogen/m3/*.cbor</text>
-    <text x="360" y="220" text-anchor="middle" font-size="11" fill="#555">Ed25519 signed</text>
-    <text x="360" y="236" text-anchor="middle" font-size="11" fill="#555">canonical CBOR</text>
-    <text x="360" y="256" text-anchor="middle" font-size="11" fill="#555">Blake3 artifact hash</text>
-    <text x="360" y="272" text-anchor="middle" font-size="11" fill="#555">verifiable offline</text>
+    <rect x="190" y="160" width="170" height="155" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
+    <text x="275" y="183" text-anchor="middle" font-weight="600" fill="#0066cc">② Signed bundle</text>
+    <text x="275" y="203" text-anchor="middle" font-size="10.5" fill="#333">neogen verify</text>
+    <text x="275" y="220" text-anchor="middle" font-size="10.5" fill="#555">.neogen/m3/*.cbor</text>
+    <text x="275" y="234" text-anchor="middle" font-size="10.5" fill="#555">Ed25519 signed</text>
+    <text x="275" y="252" text-anchor="middle" font-size="10.5" fill="#555">canonical CBOR</text>
+    <text x="275" y="268" text-anchor="middle" font-size="10.5" fill="#555">verifiable offline</text>
+    <text x="275" y="298" text-anchor="middle" font-size="10" fill="#888" font-style="italic">audit time</text>
 
-    <rect x="500" y="150" width="200" height="140" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
-    <text x="600" y="178" text-anchor="middle" font-weight="600" fill="#0066cc">③ GitHub Actions</text>
-    <text x="600" y="200" text-anchor="middle" font-size="11" fill="#333">.github/workflows/</text>
-    <text x="600" y="216" text-anchor="middle" font-size="11" fill="#333">m3-gates.yml</text>
-    <text x="600" y="236" text-anchor="middle" font-size="11" fill="#555">re-runs gates in CI</text>
-    <text x="600" y="256" text-anchor="middle" font-size="11" fill="#555">3 jobs green</text>
-    <text x="600" y="272" text-anchor="middle" font-size="11" fill="#555">independent of substrate</text>
+    <rect x="370" y="160" width="170" height="155" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
+    <text x="455" y="183" text-anchor="middle" font-weight="600" fill="#0066cc">③ GitHub Actions</text>
+    <text x="455" y="203" text-anchor="middle" font-size="10.5" fill="#333">m3-gates.yml</text>
+    <text x="455" y="220" text-anchor="middle" font-size="10.5" fill="#555">re-runs the gates</text>
+    <text x="455" y="234" text-anchor="middle" font-size="10.5" fill="#555">from clean checkout</text>
+    <text x="455" y="252" text-anchor="middle" font-size="10.5" fill="#555">3 CI jobs Hold</text>
+    <text x="455" y="268" text-anchor="middle" font-size="10.5" fill="#555">per-push</text>
+    <text x="455" y="298" text-anchor="middle" font-size="10" fill="#888" font-style="italic">CI time</text>
+
+    <rect x="550" y="160" width="200" height="155" rx="6" fill="#f5f5f7" stroke="#0066cc" stroke-width="1.5"/>
+    <text x="650" y="183" text-anchor="middle" font-weight="600" fill="#0066cc">④ Reproducible replay</text>
+    <text x="650" y="203" text-anchor="middle" font-size="10.5" fill="#333">neogen replay</text>
+    <text x="650" y="220" text-anchor="middle" font-size="10.5" fill="#555">per-file Blake3</text>
+    <text x="650" y="234" text-anchor="middle" font-size="10.5" fill="#555">vs. bundle's digests</text>
+    <text x="650" y="252" text-anchor="middle" font-size="10.5" fill="#555">drift = tampered or</text>
+    <text x="650" y="268" text-anchor="middle" font-size="10.5" fill="#555">unexpected change</text>
+    <text x="650" y="298" text-anchor="middle" font-size="10" fill="#888" font-style="italic">any time, any checkout</text>
   </g>
 
   <!-- arrows pointing up to the central claim -->
   <g stroke="#0a7d3a" stroke-width="1.5" fill="none" marker-end="url(#arr2)">
-    <defs>
-      <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#0a7d3a"/>
-      </marker>
-    </defs>
-    <line x1="120" y1="150" x2="280" y2="100"/>
-    <line x1="360" y1="150" x2="360" y2="100"/>
-    <line x1="600" y1="150" x2="440" y2="100"/>
+    <line x1="95"  y1="160" x2="240" y2="98"/>
+    <line x1="275" y1="160" x2="335" y2="98"/>
+    <line x1="455" y1="160" x2="425" y2="98"/>
+    <line x1="650" y1="160" x2="520" y2="98"/>
   </g>
 </svg>
 <div class="figure-caption">
-Fig 2 — Three-way independent verification of the same Hold claim. Local substrate runs
-the gates before the PR opens; the signed bundle lets a reviewer verify the iteration
-offline using only the bundle CBOR + signature + the public key; GitHub Actions re-runs
-the same gates from a clean checkout, with no access to the substrate's claim. Three
-independent oracles converging on the same verdict.
+Fig 2 — Four-way independent verification of the same Hold claim. Each oracle is
+independent of the others (the bundle doesn't know what CI will do; CI doesn't know
+what replay will find; replay doesn't know what the local substrate concluded). Four
+oracles converging on the same verdict is much stronger than any one of them alone.
 </div>
 </div>
 
@@ -373,7 +389,7 @@ One command. Fresh clone each run; same story re-runs land on the same PR
 </a>
 
 <a class="card" href="../lovable-bridge/paper/build/main.pdf">
-<h3>NeoGen working paper · v0.9.8 <span class="pill pill-accent">70 pp</span></h3>
+<h3>NeoGen working paper · v0.9.9 <span class="pill pill-accent">70 pp</span></h3>
 <p>Architecture, formal grounding, verification ladder. §10 Status (2026-05-12) covers what shipped today and the substrate feature inventory; §10.5 covers the substrate-composition direction (Bianconi higher-order network theory + Hodge decomposition); §6 covers the verification ladder; §5 covers operational phasing.</p>
 </a>
 
